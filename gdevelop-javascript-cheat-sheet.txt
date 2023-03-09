@@ -1,0 +1,337 @@
+I believe I got rid off all the Gdevelop non-standard quotes. Check for them first if anything should fail.
+Use at your own risk. Double check everything.
+
+
+//type
+//--------
+/** @type {gdjs.SpriteRuntimeObject} */
+/** @type {gdjs.DraggableRuntimeBehavior} */
+
+//Get/set Variables
+//--------------------------
+let myVar = runtimeScene.getVariables().get("");
+myVar.setString("");
+
+let myVar = runtimeScene.getVariables().get("");
+myVar.setNumber();
+
+let myVar = runtimeScene.getVariables().get("");
+myVar.setBoolean();
+
+//return value
+//----------------------
+eventsFunctionContext.returnValue = true;
+
+
+const targetY = runtimeScene.getVariables().get(eventsFunctionContext.getArgument("ResultVariable")).getChild("Y");
+
+const obj = runtimeScene.getObjects("");
+const obj = runtimeScene.getObjects("")[0];
+
+
+//Set value of global variable:
+//--------------------------------
+runtimeScene.getGame().getVariables().get('globalVarName').setNumber(100);
+runtimeScene.getGame().getVariables().get('globalVarName').setString('new text');
+
+//Get value of global variable:
+//-----------------------------
+var globalVarNumber = runtimeScene.getGame().getVariables().get('globalVarName').getAsNumber();
+var globalVarString = runtimeScene.getGame().getVariables().get('globalVarName').getAsString();
+
+//Get/Set Structure Using Argument
+//-----------------------------
+const targetX = runtimeScene.getVariables().get(eventsFunctionContext.getArgument("Target")).getChild("X");
+const targetY = runtimeScene.getVariables().get(eventsFunctionContext.getArgument("Target")).getChild("Y");
+targetX.setNumber(123);
+targetY.setNumber(456);
+
+//Get/Set Structure
+//-----------------------------
+const targetX = runtimeScene.getVariables().get("X").getChild("X");
+const targetY = runtimeScene.getVariables().get("Y").getChild("Y");
+targetX.setNumber(123);
+targetY.setNumber(456);
+
+//Sort Array
+//---------------
+let myVar = runtimeScene.getVariables().get("list");
+myVar.getAllChildrenArray()
+    .sort((a, b) => {
+        const na = a.getAsString().toLowerCase;
+        const nb = b.getAsString().toLowerCase;
+        return na < nb ? -1 : na > nb ? 1 : 0;
+    });
+
+//My first function
+//---------------------
+const Stooges = ["Larry", "Moe" , "Curly"];
+var Temp = "";
+
+Stooges.forEach(MyFirstFunction);
+
+function MyFirstFunction(value){
+  Temp += value + "\n";
+};
+
+const TB = runtimeScene.getObjects("NewText")[0];
+const o =TB.setString(Temp);
+
+//object variables
+//----------------
+let q = objects[0].getVariables().get("varName").getAsBoolean();
+objects[0].getVariables().get("varName").setBoolean(true);
+
+
+//scan object for variable
+//--------------------
+Object.keys(objects).forEach(key => {
+  console.debug(key + "-" + objects[key].getVariables().get("ID").getAsNumber() );
+});
+
+//behavior parameters
+//-------------
+const variable = eventsFunctionContext.getArgument("paramater");
+
+
+//delete object
+//------------
+const obj = runtimeScene.getObjects("objectName");
+const oc = obj[0].getInstanceContainer();
+obj[0].deleteFromScene(oc)
+
+
+//random number
+//---------------
+obj[Math.floor(Math.random()*15)].setHeight(200);
+
+
+//container - change texture
+//-----------------------------
+const obj = runtimeScene.getObjects("NewTiledSprite")[0];
+const iContainter = obj.getInstanceContainer();
+const x =obj.setTexture("car.jpg",iContainter);
+
+//MouseX,Y setX, setY
+//------------------
+const x = runtimeScene.getGame().getInputManager().getMouseX();
+const y =runtimeScene.getGame().getInputManager().getMouseY();
+obj.setX(x);
+obj.setY(y);
+
+//Create object and setPosition
+//------------------------------
+const obj = runtimeScene.getObjects("NewSprite")[0];
+const iContainter = obj.getInstanceContainer();
+const newObj=iContainter.createObject("NewSprite");
+newObj.setPosition(x,y);
+
+//rotste obj
+//---------------
+const r = OBJ.setAngle(OBJ.getAngle()+5);
+
+
+//Collison test
+//------------------------
+/** @type {gdjs.SpriteRuntimeObject} */
+
+const Obj1 = runtimeScene.getObjects('Batman');
+const Obj2 =  runtimeScene.getObjects("Robin");
+
+let in_collision = false;
+
+for ( const Obj of Obj2){
+ 
+in_collision = gdjs.RuntimeObject.collisionTest(Obj1[0], Obj, false);
+
+if( in_collision ) {
+    console.log('Hit');
+    Obj.setAngle(Obj.getAngle()+10);
+  }
+}
+
+
+//Link 2 objects
+//------------------
+const manager = gdjs.LinksManager.getManager(runtimeScene);
+
+manager.linkObjects(enemy, gun)
+
+
+//add scene
+//---------------
+if( TM.getTimer( "TM_RESTART_GAME" ).getTime() >= 2500 ) {
+    runtimeScene.requestChange( gdjs.SceneChangeRequest.PUSH_SCENE, "HiScore" );
+    runtimeScene.requestChange( gdjs.SceneChangeRequest.STOP_GAME, "HiScore" );
+    gdjs.evtTools.runtimeScene.pushScene(runtimeScene, "HiScore");
+    console.log( "Restarting");
+    runtimeScene.requestChange( gdjs.SceneChangeRequest.REPLACE_SCENE, "Level 1" );
+}
+
+//pathfinding
+//---------------
+/** @type {gdjs.SpriteRuntimeObject} */
+const OBJ = runtimeScene.getObjects("NewSprite")[0];
+let X = runtimeScene.getGame().getInputManager().getMouseX();
+let Y =runtimeScene.getGame().getInputManager().getMouseY();
+
+/** @type {gdjs.PathfindingRuntimeBehavior} */
+OBJ.getBehavior('Pathfinding').moveTo(OBJ.getInstanceContainer(),X,Y);
+
+//Draggable behavior
+//---------------------
+const OBJ = runtimeScene.getObjects("NewSprite")[0];
+/** @type {gdjs.DraggableRuntimeBehavior} */
+const O =OBJ.getBehavior("Draggable").isDragged();
+
+//Change Textbox
+//----------------
+const TB = runtimeScene.getObjects("NewText")[0];
+const o =TB.setString(Temp);
+
+//Array forEach
+//--------------------
+const numbers = [45, 4, 9, 16, 25];
+let txt = "";
+numbers.forEach(myFunction);
+
+function myFunction(value, index, array) {
+  txt += value + "<br>";
+}
+
+//To and from JSON
+//==============
+const CopyFromVar = runtimeScene.getVariables().get(eventsFunctionContext.getArgument("CopyFromVar"));
+const globalVariable = runtimeScene.getGame().getVariables().get(eventsFunctionContext.getArgument("CopyFromVar"));
+const CopyToVar = runtimeScene.getVariables().get(eventsFunctionContext.getArgument("CopyToVar"));
+
+/** @type {gdjs.Variable} */
+let Temp = CopyFromVar.toJSObject();
+CopyToVar.fromJSObject(Temp)
+
+let Temp = globalVariable.toJSObject();
+CopyToVar.fromJSObject(Temp);
+
+
+//Layers
+//----------------
+runtimeScene.getLayer("layer1").setCameraX(objects[0].getX());
+
+let Ted = [];
+runtimeScene.getAllLayerNames(Ted);
+let L1=Ted[1]
+
+
+//Layer names to array
+//-------------
+let Ted = [];
+runtimeScene.getAllLayerNames(Ted);
+
+const arr = runtimeScene.getVariables().get("test");
+
+// Cast to array to ensure getAllChildrenArray returns the real array
+arr.castTo("array");
+const a = arr.getAllChildrenArray();
+
+for (let i = 1; i <= Ted.length -1; i++)
+    a[i] = new gdjs.Variable({type: "string",value: Ted[i],});
+
+
+//Return value
+//-------------------
+eventsFunctionContext.returnValue="";
+
+//play a sound
+//-------------------
+var sound_manager = runtimeScene.getGame().getSoundManager(); 
+// play random sound, channel = 0, loop = false, volume = 100, pitch = 1
+sound_manager.playSoundOnChannel("NewFile.wav",0, false, 100, 1);
+
+
+//Particle emitter
+//------------
+let obj = runtimeScene.getObjects("NewParticlesEmitter");
+/** @type {gdjs.ParticleEmitterObject} */
+obj[0].setFlow(500,100);
+
+/** @type {gdjs.ParticleEmitterObject} */
+let obj = runtimeScene.getObjects("NewParticlesEmitter")[0];
+/** @type {gdjs.ParticleEmitterObject} */
+obj.setParticleSize1
+
+
+//External layouts
+//--------------------
+let Y =runtimeScene.getGame().getExternalLayoutData("Fred").instances[0].name;
+
+
+//External layouts for each
+//--------------------
+let Y =runtimeScene.getGame().getExternalLayoutData("Fred").instances[1];
+
+Object.keys(Y).forEach(key => {
+  const value = Y[key]
+  console.log(key +" - "+ value) 
+})
+
+
+//External layouts for each nested loop
+//--------------------
+runtimeScene.setBackgroundColor(100, 100, 240);
+/** @type {gdjs.RuntimeGame} */
+let Y = runtimeScene.getGame().getExternalLayoutData("Fred").instances;
+
+ for (let i = 0; i < Y.length; i++) {
+
+    Object.keys(Y[i]).forEach(key => {
+        const value = Y[i][key]
+        console.log(key + " - " + value) 
+    });
+ }
+
+
+//tween
+//---------------
+// get object by its name
+const obj = runtimeScene.getObjects(objectName)[0];
+
+// get attached tween behavior
+let tween = obj.getBehavior("Tween");
+
+// create a tween identifier using the object name
+const tweenYName = obj.name + "PositionYTween";
+
+// run the tween
+tween.addObjectPositionYTween(tweenYName, 2000, "linear", 1000, false);
+
+//object instance picking
+//-------------------------------
+//last
+const lists = eventsFunctionContext.getObjectsLists("").items;
+for (const listName in lists) {
+    const list = lists[listName];
+    list[0] = list[list.length - 1];
+    list.length = 1;
+}
+
+//first
+const lists = eventsFunctionContext.getObjectsLists("").items;
+for (const listName in lists) {
+    const list = lists[listName];
+    list.length = 1;
+}
+
+
+//Match ID to objects
+//--------------------
+/** @type {gdjs.SpriteRuntimeObject} */
+const CurrentID = eventsFunctionContext.getArgument("CurrentID");
+const NextID = eventsFunctionContext.getArgument("NextID");
+
+let list=[];
+Object.keys(objects).forEach(key => {
+  list.push(objects[key].getVariables().get("ID").getAsNumber())
+});
+
+let angle = objects[list[CurrentID]].getAngleToPosition(objects[list[NextID]].x,objects[list[NextID]].y);
+eventsFunctionContext.returnValue = angle;
